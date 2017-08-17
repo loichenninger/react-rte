@@ -61,7 +61,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sstur/react-rte.git"
+    "url": "git+https://github.com/Gillespie59/react-rte.git"
   },
   "keywords": [
     "reactjs",
@@ -136,7 +136,7 @@
   ],
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sstur/react-rte/issues"
+    "url": "https://github.com/Gillespie59/react-rte/issues"
   },
-  "homepage": "https://github.com/sstur/react-rte#readme"
+  "homepage": "https://github.com/Gillespie59/react-rte#readme"
 }
