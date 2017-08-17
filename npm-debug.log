@@ -1,0 +1,185 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/home/manu/.nvm/versions/node/v6.11.0/bin/node',
+1 verbose cli   '/home/manu/.nvm/versions/node/v6.11.0/bin/npm',
+1 verbose cli   'publish' ]
+2 info using npm@3.10.10
+3 info using node@v6.11.0
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec Result {
+7 silly cache add   raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   escapedName: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: '/home/manu/Documents/workspaces/Insee/react-rte',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory /home/manu/.npm/@Gillespie59/react-rte/0.14.1/package.tgz not in flight; packing
+9 verbose correctMkdir /home/manu/.npm correctMkdir not in flight; initializing
+10 info lifecycle @Gillespie59/react-rte@0.14.1~prepublish: @Gillespie59/react-rte@0.14.1
+11 verbose lifecycle @Gillespie59/react-rte@0.14.1~prepublish: unsafe-perm in lifecycle true
+12 verbose lifecycle @Gillespie59/react-rte@0.14.1~prepublish: PATH: /home/manu/.nvm/versions/node/v6.11.0/lib/node_modules/npm/bin/node-gyp-bin:/home/manu/Documents/workspaces/Insee/react-rte/node_modules/.bin:/home/manu/.nvm/versions/node/v6.11.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+13 verbose lifecycle @Gillespie59/react-rte@0.14.1~prepublish: CWD: /home/manu/Documents/workspaces/Insee/react-rte
+14 silly lifecycle @Gillespie59/react-rte@0.14.1~prepublish: Args: [ '-c', 'npm run build' ]
+15 silly lifecycle @Gillespie59/react-rte@0.14.1~prepublish: Returned: code: 0  signal: null
+16 verbose tar pack [ '/home/manu/.npm/@Gillespie59/react-rte/0.14.1/package.tgz',
+16 verbose tar pack   '/home/manu/Documents/workspaces/Insee/react-rte' ]
+17 verbose tarball /home/manu/.npm/@Gillespie59/react-rte/0.14.1/package.tgz
+18 verbose folder /home/manu/Documents/workspaces/Insee/react-rte
+19 verbose addLocalTarball adding from inside cache /home/manu/.npm/@Gillespie59/react-rte/0.14.1/package.tgz
+20 verbose correctMkdir /home/manu/.npm correctMkdir not in flight; initializing
+21 silly cache afterAdd @Gillespie59/react-rte@0.14.1
+22 verbose afterAdd /home/manu/.npm/@Gillespie59/react-rte/0.14.1/package/package.json not in flight; writing
+23 verbose correctMkdir /home/manu/.npm correctMkdir not in flight; initializing
+24 verbose afterAdd /home/manu/.npm/@Gillespie59/react-rte/0.14.1/package/package.json written
+25 silly publish { name: '@Gillespie59/react-rte',
+25 silly publish   version: '0.14.1',
+25 silly publish   description: 'React Rich Text Editor',
+25 silly publish   main: 'dist/react-rte.js',
+25 silly publish   files: [ 'lib', 'dist' ],
+25 silly publish   scripts:
+25 silly publish    { build: 'npm run build-lib && npm run build-dist',
+25 silly publish      'build-dist': 'rimraf dist && webpack',
+25 silly publish      'build-lib': 'rimraf lib && babel src --ignore "_*" --out-dir lib --copy-files',
+25 silly publish      lint: 'eslint --max-warnings 0 .',
+25 silly publish      typecheck: 'flow',
+25 silly publish      prepublish: 'npm run build',
+25 silly publish      start: 'webpack-dev-server --content-base assets/',
+25 silly publish      test: 'npm run lint && npm run typecheck && npm run test-src',
+25 silly publish      'test-src': 'mocha "src/**/__tests__/*.js"' },
+25 silly publish   dependencies:
+25 silly publish    { 'babel-runtime': '^6.23.0',
+25 silly publish      'class-autobind': '^0.1.4',
+25 silly publish      classnames: '^2.2.5',
+25 silly publish      'draft-js': '>=0.10.0',
+25 silly publish      'draft-js-export-html': '>=0.6.0',
+25 silly publish      'draft-js-export-markdown': '>=0.3.0',
+25 silly publish      'draft-js-import-html': '>=0.4.0',
+25 silly publish      'draft-js-import-markdown': '>=0.3.0',
+25 silly publish      'draft-js-utils': '>=0.2.0',
+25 silly publish      immutable: '^3.8.1' },
+25 silly publish   peerDependencies: { react: '0.14.x || 15.x.x', 'react-dom': '0.14.x || 15.x.x' },
+25 silly publish   devDependencies:
+25 silly publish    { 'babel-cli': '^6.18.0',
+25 silly publish      'babel-core': '^6.18.2',
+25 silly publish      'babel-eslint': '^7.1.0',
+25 silly publish      'babel-loader': '^7.1.1',
+25 silly publish      'babel-plugin-transform-runtime': '^6.23.0',
+25 silly publish      'babel-preset-es2015': '^6.18.0',
+25 silly publish      'babel-preset-react': '^6.11.1',
+25 silly publish      'babel-preset-stage-2': '^6.18.0',
+25 silly publish      'css-loader': '^0.28.4',
+25 silly publish      'css-modules-require-hook': '^4.0.0',
+25 silly publish      eslint: '^3.9.1',
+25 silly publish      'eslint-plugin-babel': '^3.3.0',
+25 silly publish      'eslint-plugin-flow-vars': '^0.5.0',
+25 silly publish      'eslint-plugin-react': '^6.5.0',
+25 silly publish      expect: '^1.20.2',
+25 silly publish      'flow-bin': '^0.32.0',
+25 silly publish      mocha: '^3.1.2',
+25 silly publish      'raw-loader': '^0.5.1',
+25 silly publish      'react-addons-test-utils': '^15.0.2',
+25 silly publish      rimraf: '^2.5.4',
+25 silly publish      'style-loader': '^0.18.2',
+25 silly publish      webpack: '^3.4.0',
+25 silly publish      'webpack-dev-server': '^2.6.1' },
+25 silly publish   repository:
+25 silly publish    { type: 'git',
+25 silly publish      url: 'git+https://github.com/sstur/react-rte.git' },
+25 silly publish   keywords:
+25 silly publish    [ 'reactjs',
+25 silly publish      'draftjs',
+25 silly publish      'contenteditable',
+25 silly publish      'wysiwyg',
+25 silly publish      'richtext',
+25 silly publish      'editor' ],
+25 silly publish   author: { name: 'sstur@me.com' },
+25 silly publish   contributors:
+25 silly publish    [ { name: 'Adam J. McIntyre',
+25 silly publish        url: 'https://github.com/amcintyre-cs' },
+25 silly publish      { name: 'André Schmidt', url: 'https://github.com/andschdk' },
+25 silly publish      { name: 'Ben Herila', url: 'https://github.com/bherila' },
+25 silly publish      { name: 'Harris Brakmic', url: 'https://github.com/brakmic' },
+25 silly publish      { name: 'Forbes Lindesay',
+25 silly publish        url: 'https://github.com/ForbesLindesay' },
+25 silly publish      { name: 'Kristopher Craw', url: 'https://github.com/KCraw' },
+25 silly publish      { name: 'Rory Hunter', url: 'https://github.com/pugnascotia' },
+25 silly publish      { name: 'Ralph Schindler',
+25 silly publish        url: 'https://github.com/ralphschindler' },
+25 silly publish      { name: 'RaoHai', url: 'https://github.com/RaoHai' },
+25 silly publish      { name: 'Jordan Kohl', url: 'https://github.com/simpixelated' },
+25 silly publish      { name: 'Steffen Kolmer', url: 'https://github.com/skolmer' },
+25 silly publish      { name: 'Simon Sturmer', url: 'https://github.com/sstur' },
+25 silly publish      { name: 'Waldir Pimenta', url: 'https://github.com/waldyrious' },
+25 silly publish      { name: 'Zach Silveira', url: 'https://github.com/zackify' },
+25 silly publish      { name: 'Hyunyoung Cho', url: 'https://github.com/ZeroCho' } ],
+25 silly publish   license: 'ISC',
+25 silly publish   bugs: { url: 'https://github.com/sstur/react-rte/issues' },
+25 silly publish   homepage: 'https://github.com/sstur/react-rte#readme',
+25 silly publish   readme: '# React Rich Text Editor\n\n![Build Status](https://travis-ci.org/sstur/react-rte.svg?branch=master)\n\nThis is a UI component built completely in React that is meant to be a full-featured textarea replacement similar to [CKEditor][ckeditor], [TinyMCE][tinymce] and other [rich text "WYSIWYG" editors][rte]. It\'s based on the excellent, open source [Draft.js][draft-js] from Facebook which is performant and production-tested.\n\n## Demo\n\nTry the editor here: [react-rte.org/demo][react-rte-demo]\n\n[![Screenshot 1](https://ucassets.blob.core.windows.net/uploads/rte.png)][react-rte-demo]\n\n\n## Getting Started\n\n    $ npm install --save react-rte\n\n`RichTextEditor` is the main editor component. It is comprised of the Draft.js `<Editor>`, some UI components (e.g. toolbar) and some helpful abstractions around getting and setting content with HTML/Markdown.\n\n`RichTextEditor` is designed to be used like a `textarea` except that instead of `value` being a string, it is an object with `toString` on it. Creating a `value` from a string is also easy using `createValueFromString(markup, \'html\')`.\n\n### Browser Compatibility\n\nThe scripts are transpiled by Babel to ES6. Additionally, at least one of this package\'s dependencies does not support IE. So, for IE and back-plat support you will need to include some polyfill in your HTML (#74, #196, #203): `<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=String.prototype.startsWith,Array.from,Array.prototype.fill,Array.prototype.keys,Array.prototype.findIndex,Number.isInteger&flags=gated"></script>`\n\n### Required Webpack configuration\n\nIf you are not using Webpack, you can skip this section. Webpack is required for isomorphic/server-side rendering support in a Node.js environment.\n\n`\'react-rte\'` contains a bundle that is already built (with CSS) using webpack and is not intended to be consumed again by webpack. So, if you are using webpack you must import RichTextEditor from `react-rte/lib/RichTextEditor` in order to get the un-bundled script which webpack can bundle with your app.\n\nIf you are using webpack you must add a css loader or else your webpack build will fail. For example:\n\n```js\n  {\n    test: /\\.css$/,\n    loaders: [\n      \'style-loader\',\n      \'css-loader?modules\'\n    ]\n  },\n```\n\n### Example Usage:\n\nThis example uses newer JavaScript and JSX. For an example in old JavaScript, [see below](#example-with-es5-and-no-jsx).\n\n```javascript\nimport React, {Component, PropTypes} from \'react\';\nimport RichTextEditor from \'react-rte\';\n\nclass MyStatefulEditor extends Component {\n  static propTypes = {\n    onChange: PropTypes.func\n  };\n\n  state = {\n    value: RichTextEditor.createEmptyValue()\n  }\n\n  onChange = (value) => {\n    this.setState({value});\n    if (this.props.onChange) {\n      // Send the changes up to the parent component as an HTML string.\n      // This is here to demonstrate using `.toString()` but in a real app it\n      // would be better to avoid generating a string on each change.\n      this.props.onChange(\n        value.toString(\'html\')\n      );\n    }\n  };\n\n  render () {\n    return (\n      <RichTextEditor\n        value={this.state.value}\n        onChange={this.onChange}\n      />\n    );\n  }\n}\n```\n\n### Toolbar Customization\n\n```javascript\n\nrender() {\n  // The toolbarConfig object allows you to specify custom buttons, reorder buttons and to add custom css classes.\n  // Supported inline styles: https://github.com/facebook/draft-js/blob/master/docs/Advanced-Topics-Inline-Styles.md\n  // Supported block types: https://github.com/facebook/draft-js/blob/master/docs/Advanced-Topics-Custom-Block-Render.md#draft-default-block-render-map\n  const toolbarConfig = {\n    // Optionally specify the groups to display (displayed in the order listed).\n    display: [\'INLINE_STYLE_BUTTONS\', \'BLOCK_TYPE_BUTTONS\', \'LINK_BUTTONS\', \'BLOCK_TYPE_DROPDOWN\', \'HISTORY_BUTTONS\'],\n    INLINE_STYLE_BUTTONS: [\n      {label: \'Bold\', style: \'BOLD\', className: \'custom-css-class\'},\n      {label: \'Italic\', style: \'ITALIC\'},\n      {label: \'Underline\', style: \'UNDERLINE\'}\n    ],\n    BLOCK_TYPE_DROPDOWN: [\n      {label: \'Normal\', style: \'unstyled\'},\n      {label: \'Heading Large\', style: \'header-one\'},\n      {label: \'Heading Medium\', style: \'header-two\'},\n      {label: \'Heading Small\', style: \'header-three\'}\n    ],\n    BLOCK_TYPE_BUTTONS: [\n      {label: \'UL\', style: \'unordered-list-item\'},\n      {label: \'OL\', style: \'ordered-list-item\'}\n    ]\n  };\n  return (\n    <RichTextEditor toolbarConfig={toolbarConfig} />\n  );\n}\n\n```\n\n## Motivation\n\nIn short, this is a 2016 approach to rich text editing built on modern, battle-hardened components and, importantly, we do not store document state in the DOM, eliminating entire classes of common "WYSIWYG" problems.\n\nThis editor is built on [Draft.js][draft-js] from Facebook. Draft.js is more of a low-level framework (`contentEditable` abstraction), however this component is intended to be a fully polished UI component that you can reach for when you need to replace a `<textarea/>` in your application to support bold, italic, links, lists, etc.\n\nThe data model in Draft.js allows us to represent the document in a way that is mostly agnostic to the view/render layer or the textual representation (html/markdown) you choose. This data model encapsulates the content/state of the editor and is based on [Immutable.js][immutablejs] to be both performant and easy to reason about.\n\n## Features\n\n * Pure React and fully declarative\n * Supported formats: HTML and Markdown (coming soon: extensible support for custom formats)\n * Document Model represents your document in a sane way that will [deterministically convert to clean markup](#deterministic-output) regardless of your format choice\n * Takes full advantage of Immutable.js and the excellent performance characteristics that come with it.\n * Reliable undo/redo without a large memory footprint\n * Modern browser support\n\n## Deterministic Output\n\nUnlike typical rich text editors (such as [CKEditor][ckeditor] and [TinyMCE][tinymce]) we keep our content state in a well-architected data model instead of in the view. One important advantage of separating our data model from our view is deterministic output.\n\nSay, for instance, you select some text and add bold style. Then you add italic style. Or what if you add italic first and then bold. The result should be the same either way: the text range has both bold and italic style. But in the browser\'s view (Document Object Model) is this represented with a `<strong>` inside of an `<em>` or vice versa? Does it depend on the order in which you added the styles? In many web-based editors the HTML output *does* depend on the order of your actions. That means your output is non-deterministic. Two documents that look exactly the same in the editor will have different, sometimes unpredictable, HTML representations.\n\nIn this editor we use a pure, deterministic function to convert document state to HTML output. No matter how you *arrived at* the state, the output will be predictable. This makes everything easier to reason about. In our case, the `<strong>` will go inside the `<em>` every time.\n\n## API\n\n### Required Props\n  * `value`: Used to represent the content/state of the editor. Initially you will probably want to create an instance using a provided helper such as `RichTextEditor.createEmptyValue()` or `RichTextEditor.createValueFromString(markup, \'html\')`.\n  * `onChange`: A function that will be called with the "value" of the editor whenever it is changed. The value has a `toString` method which accepts a single `format` argument (either \'html\' or \'markdown\').\n\n### Other Props\n  All the props you can pass to Draft.js `Editor` can be passed to `RichTextEditor` (with the exception of `editorState` which will be generated internally based on the `value` prop).\n\n  * `autoFocus`: Setting this to true will automatically focus input into the editor when the component is mounted\n  * `placeholder`: A string to use as placeholder text for the `RichTextEditor`.\n  * `readOnly`: A boolean that determines if the `RichTextEditor` should render static html.\n\n### EditorValue Class\nIn Draft.js `EditorState` contains not only the document contents but the entire state of the editor including cursor position and selection. This is helpful for many reasons including undo/redo. To make things easier for you, we have wrapped the state of the editor in an `EditorValue` instance with helpful methods to convert to/from a HTML or Markdown. An instance of this class should be passed to `RichTextEditor` in the `value` prop.\n\nThe `EditorValue` class has certain optimizations built in. So let\'s say you are showing the HTML of the editor contents in your view. If you change your cursor position, that will trigger an `onChange` event (because, remember, cursor position is part of `EditorState`) and you will need to call `toString()` to render your view. However, `EditorValue` is smart enough to know that the *content* didn\'t actually change since last `toString()` so it will return a cached version of the HTML.\n\nOptimization tip: Try to call `editorValue.toString()` only when you actually need to convert it to a string. If you can keep passing around the `editorValue` without calling `toString` it will be very performant.\n\n### Example with ES5 and no JSX\n```javascript\nvar React = require(\'react\');\nvar RichTextEditor = require(\'react-rte\');\n\nReact.createClass({\n  propTypes: {\n    onChange: React.PropTypes.func\n  },\n\n  getInitialState: function() {\n    return {\n      value: RichTextEditor.createEmptyValue()\n    };\n  },\n\n  render: function() {\n    return React.createElement(RichTextEditor, {\n      value: this.state.value,\n      onChange: this.onChange\n    });\n  },\n\n  onChange: function(value) {\n    this.setState({value: value});\n    if (this.props.onChange) {\n      // Send the changes up to the parent component as an HTML string.\n      // This is here to demonstrate using `.toString()` but in a real app it\n      // would be better to avoid generating a string on each change.\n      this.props.onChange(\n        value.toString(\'html\')\n      );\n    }\n  }\n\n});\n```\n\n## TODO\n\n - Support images\n - Better test coverage\n - Documentation for using this editor in your projects\n - Fix some issues with Markdown parsing (migrate to `remark` parser)\n - Internationalization\n - Better icons and overall design\n\n## Known Limitations\n\nCurrently the biggest limitation is that images are not supported. There is a plan to support inline images (using decorators) and eventually Medium-style block-level images (using a custom block renderer).\n\nOther limitations include missing features such as: text-alignment and text color. These are coming soon.\n\nReact prior v15 will log the following superfluous warning:\n\n> A component is contentEditable and contains children managed by\n> React. It is now your responsibility to guarantee that none of\n> those nodes are unexpectedly modified or duplicated. This is\n> probably not intentional.\n\nAs all nodes are managed internally by Draft, this is not a problem and this [warning can be safely ignored](https://github.com/facebook/draft-js/issues/53). You can suppress this warning\'s display completely by duck-punching `console.error` before instantiating your component:\n\n```javascript\nconsole.error = (function(_error) {\n  return function(message) {\n    if (typeof message !== \'string\' || message.indexOf(\'component is `contentEditable`\') === -1) {\n      _error.apply(console, arguments);\n    }\n  };\n})(console.error);\n```\n\n## Contribute\n\nI\'m happy to take pull requests for bug-fixes and improvements (and tests). If you have a feature you want to implement it\'s probably a good idea to open an issue first to see if it\'s already being worked on. Please match the code style of the rest of the project (ESLint should enforce this) and please include tests. Thanks!\n\n## Run the Demo\nClone this project. Run `npm install`. Run `npm run build-dist` then point the server of your choice (like [serv][serv]) to `/demo.html`.\n\n## License\n\nThis software is [ISC Licensed](/LICENSE).\n\n\n[ckeditor]: http://ckeditor.com/\n[draft-js]: https://facebook.github.io/draft-js/\n[immutablejs]: https://facebook.github.io/immutable-js/\n[react-rte-demo]: https://react-rte.org/demo\n[rte]: https://www.google.com/search?q=web+based+rich+text+editor\n[serv]: https://www.npmjs.com/package/serv\n[tinymce]: https://www.tinymce.com/\n',
+25 silly publish   readmeFilename: 'README.md',
+25 silly publish   gitHead: '1f41d4bfd4fab2e074c0c629ba53256b6d706730',
+25 silly publish   _id: '@Gillespie59/react-rte@0.14.1',
+25 silly publish   _shasum: '2a929934ee088119e5f67db299d37a05927d432b',
+25 silly publish   _from: '.' }
+26 verbose getPublishConfig undefined
+27 silly mapToRegistry name @Gillespie59/react-rte
+28 silly mapToRegistry scope (from package name) @Gillespie59
+29 verbose mapToRegistry no registry URL found in name for scope @Gillespie59
+30 silly mapToRegistry using default registry
+31 silly mapToRegistry registry https://registry.npmjs.org/
+32 silly mapToRegistry data Result {
+32 silly mapToRegistry   raw: '@Gillespie59/react-rte',
+32 silly mapToRegistry   scope: '@Gillespie59',
+32 silly mapToRegistry   escapedName: '@Gillespie59%2freact-rte',
+32 silly mapToRegistry   name: '@Gillespie59/react-rte',
+32 silly mapToRegistry   rawSpec: '',
+32 silly mapToRegistry   spec: 'latest',
+32 silly mapToRegistry   type: 'tag' }
+33 silly mapToRegistry uri https://registry.npmjs.org/@Gillespie59%2freact-rte
+34 verbose publish registryBase https://registry.npmjs.org/
+35 silly publish uploading /home/manu/.npm/@Gillespie59/react-rte/0.14.1/package.tgz
+36 verbose request uri https://registry.npmjs.org/@Gillespie59%2freact-rte
+37 verbose request sending authorization for write operation
+38 info attempt registry request try #1 at 4:56:51 PM
+39 verbose request using bearer token for auth
+40 verbose request id 0a88eabe1855ebd0
+41 http request PUT https://registry.npmjs.org/@Gillespie59%2freact-rte
+42 http 402 https://registry.npmjs.org/@Gillespie59%2freact-rte
+43 verbose headers { 'content-type': 'application/json',
+43 verbose headers   'cache-control': 'max-age=0',
+43 verbose headers   'content-length': '119',
+43 verbose headers   'accept-ranges': 'bytes',
+43 verbose headers   date: 'Thu, 17 Aug 2017 14:56:53 GMT',
+43 verbose headers   via: '1.1 varnish',
+43 verbose headers   connection: 'keep-alive',
+43 verbose headers   'x-served-by': 'cache-cdg8730-CDG',
+43 verbose headers   'x-cache': 'MISS',
+43 verbose headers   'x-cache-hits': '0',
+43 verbose headers   'x-timer': 'S1502981812.750876,VS0,VE2097' }
+44 verbose request invalidating /home/manu/.npm/registry.npmjs.org/_40Gillespie59_252freact-rte on PUT
+45 error publish Failed PUT 402
+46 verbose stack Error: You need a paid account to perform this action. For more info, visit: https://www.npmjs.com/private-modules : @Gillespie59/react-rte
+46 verbose stack     at makeError (/home/manu/.nvm/versions/node/v6.11.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:302:12)
+46 verbose stack     at CachingRegistryClient.<anonymous> (/home/manu/.nvm/versions/node/v6.11.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:290:14)
+46 verbose stack     at Request._callback (/home/manu/.nvm/versions/node/v6.11.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:210:14)
+46 verbose stack     at Request.self.callback (/home/manu/.nvm/versions/node/v6.11.0/lib/node_modules/npm/node_modules/request/request.js:187:22)
+46 verbose stack     at emitTwo (events.js:106:13)
+46 verbose stack     at Request.emit (events.js:191:7)
+46 verbose stack     at Request.<anonymous> (/home/manu/.nvm/versions/node/v6.11.0/lib/node_modules/npm/node_modules/request/request.js:1048:10)
+46 verbose stack     at emitOne (events.js:96:13)
+46 verbose stack     at Request.emit (events.js:188:7)
+46 verbose stack     at IncomingMessage.<anonymous> (/home/manu/.nvm/versions/node/v6.11.0/lib/node_modules/npm/node_modules/request/request.js:969:12)
+47 verbose statusCode 402
+48 verbose pkgid @Gillespie59/react-rte
+49 verbose cwd /home/manu/Documents/workspaces/Insee/react-rte
+50 error Linux 4.2.0-16-generic
+51 error argv "/home/manu/.nvm/versions/node/v6.11.0/bin/node" "/home/manu/.nvm/versions/node/v6.11.0/bin/npm" "publish"
+52 error node v6.11.0
+53 error npm  v3.10.10
+54 error code E402
+55 error You need a paid account to perform this action. For more info, visit: https://www.npmjs.com/private-modules : @Gillespie59/react-rte
+56 error If you need help, you may report this error at:
+56 error     <https://github.com/npm/npm/issues>
+57 verbose exit [ 1, true ]
