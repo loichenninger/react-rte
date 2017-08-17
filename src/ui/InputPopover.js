@@ -10,6 +10,7 @@ import styles from './InputPopover.css';
 
 type Props = {
   className?: string;
+  placeholder: string;
   onCancel: () => any;
   onSubmit: (value: string) => any;
 };
@@ -45,7 +46,7 @@ export default class InputPopover extends Component {
           <input
             ref={this._setInputRef}
             type="text"
-            placeholder="https://example.com/"
+            placeholder={props.placeholder}
             className={styles.input}
             onKeyPress={this._onInputKeyPress}
           />

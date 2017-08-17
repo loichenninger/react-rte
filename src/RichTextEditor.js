@@ -62,6 +62,8 @@ type Props = {
   rootStyle?: Object;
   editorStyle?: Object;
   toolbarStyle?: Object;
+  formatURL?: (url:string) => void;
+  handlePastedText?: (text: string, html: string) => string;
 };
 
 export default class RichTextEditor extends Component {
@@ -101,6 +103,8 @@ export default class RichTextEditor extends Component {
       rootStyle,
       toolbarStyle,
       editorStyle,
+      handlePastedText,
+      formatURL,
       ...otherProps // eslint-disable-line comma-dangle
     } = this.props;
     let editorState = value.getEditorState();
@@ -127,6 +131,7 @@ export default class RichTextEditor extends Component {
           focusEditor={this._focus}
           toolbarConfig={toolbarConfig}
           customControls={customControls}
+          formatURL={formatURL}
         />
       );
     }
@@ -148,6 +153,7 @@ export default class RichTextEditor extends Component {
             ref="editor"
             spellCheck={true}
             readOnly={readOnly}
+            handlePastedText={handlePastedText}
           />
         </div>
       </div>

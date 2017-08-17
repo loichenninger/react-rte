@@ -10,6 +10,7 @@ type Props = {
   showPopover: boolean,
   onTogglePopover: Function,
   onSubmit: Function;
+  placeholder?: string;
 };
 
 export default class PopoverIconButton extends Component {
@@ -37,6 +38,7 @@ export default class PopoverIconButton extends Component {
       <InputPopover
         onSubmit={this._onSubmit}
         onCancel={this._hidePopover}
+        placeholder={this.props.placeholder}
       />
     );
   }

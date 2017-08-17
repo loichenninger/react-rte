@@ -3,8 +3,10 @@ import type {EditorState} from 'draft-js';
 
 export type StyleConfig = {
   label: string;
-  style: string;
+  style?: string;
   className?: string;
+  placeholder?: string;
+  iconName?: string;
 };
 
 type GetControlState = (key: string) => ?string;
@@ -14,7 +16,10 @@ export type CustomControl = ReactNode | (set: SetControlState, get: GetControlSt
 export type CustomControlList = Array<CustomControl>;
 
 export type StyleConfigList = Array<StyleConfig>;
-
+export type LinkConfigObject = {
+  ADD: StyleConfig,
+  REMOVE: StyleConfig
+}
 export type GroupName = 'INLINE_STYLE_BUTTONS' | 'BLOCK_TYPE_BUTTONS' | 'LINK_BUTTONS' | 'BLOCK_TYPE_DROPDOWN' | 'HISTORY_BUTTONS' | 'IMAGE_BUTTON';
 
 export type ToolbarConfig = {
@@ -23,6 +28,7 @@ export type ToolbarConfig = {
   INLINE_STYLE_BUTTONS: StyleConfigList;
   BLOCK_TYPE_DROPDOWN: StyleConfigList;
   BLOCK_TYPE_BUTTONS: StyleConfigList;
+  LINK_BUTTONS: LinkConfigObject;
 };
 
 export const INLINE_STYLE_BUTTONS: StyleConfigList = [
@@ -46,11 +52,17 @@ export const BLOCK_TYPE_BUTTONS: StyleConfigList = [
   {label: 'Blockquote', style: 'blockquote'},
 ];
 
+export const LINK_BUTTONS: LinkConfigObject = {
+  ADD: {label: 'Link', iconName: 'link', placeholder: 'http://example.com'},
+  REMOVE: {label: 'Remove Link', iconName: 'remove-link'},
+};
+
 let EditorToolbarConfig: ToolbarConfig = {
   display: ['INLINE_STYLE_BUTTONS', 'BLOCK_TYPE_BUTTONS', 'LINK_BUTTONS', 'IMAGE_BUTTON', 'BLOCK_TYPE_DROPDOWN', 'HISTORY_BUTTONS'],
   INLINE_STYLE_BUTTONS,
   BLOCK_TYPE_DROPDOWN,
   BLOCK_TYPE_BUTTONS,
+  LINK_BUTTONS,
 };
 
 export default EditorToolbarConfig;

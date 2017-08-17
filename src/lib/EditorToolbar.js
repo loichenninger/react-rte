@@ -32,6 +32,7 @@ type Props = {
   toolbarConfig: ToolbarConfig;
   customControls: Array<CustomControl>;
   rootStyle?: Object;
+  formatURL: Function;
 };
 
 type State = {
@@ -63,6 +64,13 @@ export default class EditorToolbar extends Component {
 
   componentWillUnmount() {
     this.props.keyEmitter.removeListener('keypress', this._onKeypress);
+  }
+
+  formatURL(url: string) {
+    if (this.props.formatURL) {
+      return this.props.formatURL(url);
+    }
+    return {url};
   }
 
   render() {
@@ -199,17 +207,18 @@ export default class EditorToolbar extends Component {
     return (
       <ButtonGroup key={name}>
         <PopoverIconButton
-          label="Link"
-          iconName="link"
+          label={toolbarConfig.LINK_BUTTONS.ADD.label}
+          iconName={toolbarConfig.LINK_BUTTONS.ADD.iconName}
           isDisabled={!shouldShowLinkButton}
           showPopover={this.state.showLinkInput}
           onTogglePopover={this._toggleShowLinkInput}
           onSubmit={this._setLink}
+          placeholder={toolbarConfig.LINK_BUTTONS.ADD.placeholder}
         />
         <IconButton
           {...toolbarConfig.extraProps}
-          label="Remove Link"
-          iconName="remove-link"
+          label={toolbarConfig.LINK_BUTTONS.REMOVE.label}
+          iconName={toolbarConfig.LINK_BUTTONS.REMOVE.iconName}
           isDisabled={!isCursorOnLink}
           onClick={this._removeLink}
           focusOnClick={false}
@@ -329,7 +338,7 @@ export default class EditorToolbar extends Component {
     let {editorState} = this.props;
     let contentState = editorState.getCurrentContent();
     let selection = editorState.getSelection();
-    contentState = contentState.createEntity(ENTITY_TYPE.LINK, 'MUTABLE', {url});
+    contentState = contentState.createEntity(ENTITY_TYPE.LINK, 'MUTABLE', this.formatURL(url));
     let entityKey = contentState.getLastCreatedEntityKey();
     let newEditorState = EditorState.push(editorState, contentState);
     this.setState({showLinkInput: false});
