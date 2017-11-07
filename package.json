@@ -3,14 +3,12 @@
   "version": "0.14.2",
   "description": "React Rich Text Editor",
   "main": "dist/react-rte.js",
-  "files": [
-    "lib",
-    "dist"
-  ],
+  "files": ["lib", "dist"],
   "scripts": {
     "build": "npm run build-lib && npm run build-dist",
     "build-dist": "rimraf dist && webpack",
-    "build-lib": "rimraf lib && babel src --ignore \"_*\" --out-dir lib --copy-files",
+    "build-lib":
+      "rimraf lib && babel src --ignore \"_*\" --out-dir lib --copy-files",
     "lint": "eslint --max-warnings 0 .",
     "typecheck": "flow",
     "prepublish": "npm run build",
@@ -28,9 +26,7 @@
     "draft-js-import-html": ">=0.4.0",
     "draft-js-import-markdown": ">=0.3.0",
     "draft-js-utils": ">=0.2.0",
-    "immutable": "^3.8.1"
-  },
-  "peerDependencies": {
+    "immutable": "^3.8.1",
     "react": "0.14.x || 15.x.x",
     "react-dom": "0.14.x || 15.x.x"
   },
