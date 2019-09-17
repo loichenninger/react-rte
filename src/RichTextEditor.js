@@ -1,74 +1,82 @@
 /* @flow */
-import React, {Component} from 'react';
-import {CompositeDecorator, Editor, EditorState, Modifier, RichUtils, Entity} from 'draft-js';
-import getDefaultKeyBinding from 'draft-js/lib/getDefaultKeyBinding';
-import changeBlockDepth from './lib/changeBlockDepth';
-import changeBlockType from './lib/changeBlockType';
-import getBlocksInSelection from './lib/getBlocksInSelection';
-import insertBlockAfter from './lib/insertBlockAfter';
-import isListItem from './lib/isListItem';
-import isSoftNewlineEvent from 'draft-js/lib/isSoftNewlineEvent';
-import EditorToolbar from './lib/EditorToolbar';
-import EditorValue from './lib/EditorValue';
-import LinkDecorator from './lib/LinkDecorator';
-import ImageDecorator from './lib/ImageDecorator';
-import composite from './lib/composite';
-import cx from 'classnames';
-import autobind from 'class-autobind';
-import EventEmitter from 'events';
-import {BLOCK_TYPE} from 'draft-js-utils';
+import React, { Component } from "react";
+import {
+  CompositeDecorator,
+  Editor,
+  EditorState,
+  Modifier,
+  RichUtils,
+  Entity
+} from "draft-js";
+import getDefaultKeyBinding from "draft-js/lib/getDefaultKeyBinding";
+import changeBlockDepth from "./lib/changeBlockDepth";
+import changeBlockType from "./lib/changeBlockType";
+import getBlocksInSelection from "./lib/getBlocksInSelection";
+import insertBlockAfter from "./lib/insertBlockAfter";
+import isListItem from "./lib/isListItem";
+import isSoftNewlineEvent from "draft-js/lib/isSoftNewlineEvent";
+import EditorToolbar from "./lib/EditorToolbar";
+import EditorValue from "./lib/EditorValue";
+import LinkDecorator from "./lib/LinkDecorator";
+import ImageDecorator from "./lib/ImageDecorator";
+import composite from "./lib/composite";
+import cx from "classnames";
+import autobind from "class-autobind";
+import EventEmitter from "events";
+import { BLOCK_TYPE } from "draft-js-utils";
 
-import './Draft.global.css';
-import styles from './RichTextEditor.css';
+import "./Draft.global.css";
+import styles from "./RichTextEditor.css";
 
-import type {ContentBlock} from 'draft-js';
-import type {ToolbarConfig, CustomControl} from './lib/EditorToolbarConfig';
-import type {ImportOptions} from './lib/EditorValue';
+import type { ContentBlock } from "draft-js";
+import type { ToolbarConfig, CustomControl } from "./lib/EditorToolbarConfig";
+import type { ImportOptions } from "./lib/EditorValue";
 
-import ButtonGroup from './ui/ButtonGroup';
-import Button from './ui/Button';
-import Dropdown from './ui/Dropdown';
+import ButtonGroup from "./ui/ButtonGroup";
+import Button from "./ui/Button";
+import Dropdown from "./ui/Dropdown";
 
 const MAX_LIST_DEPTH = 2;
 
 // Custom overrides for "code" style.
 const styleMap = {
   CODE: {
-    backgroundColor: '#f3f3f3',
+    backgroundColor: "#f3f3f3",
     fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
     fontSize: 16,
-    padding: 2,
-  },
+    padding: 2
+  }
 };
 
 type ChangeHandler = (value: EditorValue) => any;
 
 type Props = {
-  className?: string;
-  toolbarClassName?: string;
-  editorClassName?: string;
-  value: EditorValue;
-  onChange?: ChangeHandler;
-  placeholder?: string;
-  customStyleMap?: {[style: string]: {[key: string]: any}};
-  handleReturn?: (event: Object) => boolean;
-  customControls?: Array<CustomControl>;
-  readOnly?: boolean;
-  disabled?: boolean; // Alias of readOnly
-  toolbarConfig?: ToolbarConfig;
-  blockStyleFn?: (block: ContentBlock) => ?string;
-  autoFocus?: boolean;
-  keyBindingFn?: (event: Object) => ?string;
-  rootStyle?: Object;
-  editorStyle?: Object;
-  toolbarStyle?: Object;
-  formatURL?: (url:string) => void;
-  handlePastedText?: (text: string, html: string) => string;
+  className?: string,
+  toolbarClassName?: string,
+  editorClassName?: string,
+  value: EditorValue,
+  onChange?: ChangeHandler,
+  placeholder?: string,
+  customStyleMap?: { [style: string]: { [key: string]: any } },
+  handleReturn?: (event: Object) => boolean,
+  customControls?: Array<CustomControl>,
+  readOnly?: boolean,
+  disabled?: boolean, // Alias of readOnly
+  toolbarConfig?: ToolbarConfig,
+  blockStyleFn?: (block: ContentBlock) => ?string,
+  autoFocus?: boolean,
+  keyBindingFn?: (event: Object) => ?string,
+  rootStyle?: Object,
+  editorStyle?: Object,
+  toolbarStyle?: Object,
+  formatURL?: (url: string) => void,
+  handlePastedText?: (text: string, html: string) => string
 };
 
 export default class RichTextEditor extends Component {
   props: Props;
   _keyEmitter: EventEmitter;
+  editor: HTMLDivElement;
 
   constructor() {
     super(...arguments);
@@ -77,7 +85,7 @@ export default class RichTextEditor extends Component {
   }
 
   componentDidMount() {
-    const {autoFocus} = this.props;
+    const { autoFocus } = this.props;
 
     if (!autoFocus) {
       return;
@@ -108,14 +116,19 @@ export default class RichTextEditor extends Component {
       ...otherProps // eslint-disable-line comma-dangle
     } = this.props;
     let editorState = value.getEditorState();
-    customStyleMap = customStyleMap ? {...styleMap, ...customStyleMap} : styleMap;
+    customStyleMap = customStyleMap
+      ? { ...styleMap, ...customStyleMap }
+      : styleMap;
 
     // If the user changes block type before entering any text, we can either
     // style the placeholder or hide it. Let's just hide it for now.
-    let combinedEditorClassName = cx({
-      [styles.editor]: true,
-      [styles.hidePlaceholder]: this._shouldHidePlaceholder(),
-    }, editorClassName);
+    let combinedEditorClassName = cx(
+      {
+        [styles.editor]: true,
+        [styles.hidePlaceholder]: this._shouldHidePlaceholder()
+      },
+      editorClassName
+    );
     if (readOnly == null) {
       readOnly = disabled;
     }
@@ -150,7 +163,9 @@ export default class RichTextEditor extends Component {
             onTab={this._onTab}
             onChange={this._onChange}
             placeholder={placeholder}
-            ref="editor"
+            ref={el => {
+              this.editor = el;
+            }}
             spellCheck={true}
             readOnly={readOnly}
             handlePastedText={handlePastedText}
@@ -164,7 +179,12 @@ export default class RichTextEditor extends Component {
     let editorState = this.props.value.getEditorState();
     let contentState = editorState.getCurrentContent();
     if (!contentState.hasText()) {
-      if (contentState.getBlockMap().first().getType() !== 'unstyled') {
+      if (
+        contentState
+          .getBlockMap()
+          .first()
+          .getType() !== "unstyled"
+      ) {
         return true;
       }
     }
@@ -172,7 +192,7 @@ export default class RichTextEditor extends Component {
   }
 
   _handleReturn(event: Object): boolean {
-    let {handleReturn} = this.props;
+    let { handleReturn } = this.props;
     if (handleReturn != null && handleReturn(event)) {
       return true;
     }
@@ -197,18 +217,18 @@ export default class RichTextEditor extends Component {
         this._onChange(RichUtils.insertSoftNewline(editorState));
       } else {
         let content = editorState.getCurrentContent();
-        let newContent = Modifier.removeRange(content, selection, 'forward');
+        let newContent = Modifier.removeRange(content, selection, "forward");
         let newSelection = newContent.getSelectionAfter();
         let block = newContent.getBlockForKey(newSelection.getStartKey());
         newContent = Modifier.insertText(
           newContent,
           newSelection,
-          '\n',
+          "\n",
           block.getInlineStyleAt(newSelection.getStartOffset()),
-          null,
+          null
         );
         this._onChange(
-          EditorState.push(editorState, newContent, 'insert-fragment')
+          EditorState.push(editorState, newContent, "insert-fragment")
         );
       }
       return true;
@@ -227,9 +247,10 @@ export default class RichTextEditor extends Component {
       let block = contentState.getBlockForKey(blockKey);
       if (isListItem(block) && block.getLength() === 0) {
         let depth = block.getDepth();
-        let newState = (depth === 0) ?
-          changeBlockType(editorState, blockKey, BLOCK_TYPE.UNSTYLED) :
-          changeBlockDepth(editorState, blockKey, depth - 1);
+        let newState =
+          depth === 0
+            ? changeBlockType(editorState, blockKey, BLOCK_TYPE.UNSTYLED)
+            : changeBlockDepth(editorState, blockKey, depth - 1);
         this._onChange(newState);
         return true;
       }
@@ -273,7 +294,7 @@ export default class RichTextEditor extends Component {
   _customKeyHandler(event: Object): ?string {
     // Allow toolbar to catch key combinations.
     let eventFlags = {};
-    this._keyEmitter.emit('keypress', event, eventFlags);
+    this._keyEmitter.emit("keypress", event, eventFlags);
     if (eventFlags.wasHandled) {
       return null;
     } else {
@@ -293,7 +314,7 @@ export default class RichTextEditor extends Component {
   }
 
   _onChange(editorState: EditorState) {
-    let {onChange, value} = this.props;
+    let { onChange, value } = this.props;
     if (onChange == null) {
       return;
     }
@@ -309,43 +330,41 @@ export default class RichTextEditor extends Component {
 
     const selectImage = (block, offset) => {
       const imageKey = block.getEntityAt(offset);
-      Entity.mergeData(imageKey, {selected: true});
+      Entity.mergeData(imageKey, { selected: true });
     };
 
-    let isInMiddleBlock = (index) => index > 0 && index < blocks.size - 1;
-    let isWithinStartBlockSelection = (offset, index) => (
-      index === 0 && offset > selection.getStartOffset()
-    );
-    let isWithinEndBlockSelection = (offset, index) => (
-      index === blocks.size - 1 && offset < selection.getEndOffset()
-    );
+    let isInMiddleBlock = index => index > 0 && index < blocks.size - 1;
+    let isWithinStartBlockSelection = (offset, index) =>
+      index === 0 && offset > selection.getStartOffset();
+    let isWithinEndBlockSelection = (offset, index) =>
+      index === blocks.size - 1 && offset < selection.getEndOffset();
 
     blocks.toIndexedSeq().forEach((block, index) => {
-      ImageDecorator.strategy(
-        block,
-        (offset) => {
-          if (isWithinStartBlockSelection(offset, index) ||
-              isInMiddleBlock(index) ||
-              isWithinEndBlockSelection(offset, index)) {
-            selectImage(block, offset);
-          }
-        });
+      ImageDecorator.strategy(block, offset => {
+        if (
+          isWithinStartBlockSelection(offset, index) ||
+          isInMiddleBlock(index) ||
+          isWithinEndBlockSelection(offset, index)
+        ) {
+          selectImage(block, offset);
+        }
+      });
     });
   }
 
   _focus() {
-    this.refs.editor.focus();
+    this.editor.focus();
   }
 }
 
 function defaultBlockStyleFn(block: ContentBlock): string {
   let result = styles.block;
   switch (block.getType()) {
-    case 'unstyled':
+    case "unstyled":
       return cx(result, styles.paragraph);
-    case 'blockquote':
+    case "blockquote":
       return cx(result, styles.blockquote);
-    case 'code-block':
+    case "code-block":
       return cx(result, styles.codeBlock);
     default:
       return result;
@@ -358,7 +377,11 @@ function createEmptyValue(): EditorValue {
   return EditorValue.createEmpty(decorator);
 }
 
-function createValueFromString(markup: string, format: string, options?: ImportOptions): EditorValue {
+function createValueFromString(
+  markup: string,
+  format: string,
+  options?: ImportOptions
+): EditorValue {
   return EditorValue.createFromString(markup, format, decorator, options);
 }
 
@@ -370,7 +393,7 @@ Object.assign(RichTextEditor, {
   createValueFromString,
   ButtonGroup,
   Button,
-  Dropdown,
+  Dropdown
 });
 
 export {
@@ -380,5 +403,5 @@ export {
   createValueFromString,
   ButtonGroup,
   Button,
-  Dropdown,
+  Dropdown
 };
