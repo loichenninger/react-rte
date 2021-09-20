@@ -23792,6 +23792,7 @@ function(module, exports, __webpack_require__) {
         }, {
             key: "_toggleShowLinkInput",
             value: function(event) {
+                event.stopPropagation();
                 var isShowing = this.state.showLinkInput;
                 // If this is a hide request, decide if we should focus the editor.
                 if (isShowing) {

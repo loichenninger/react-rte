@@ -62352,19 +62352,19 @@ var EditorToolbar = function (_Component) {
   }
 
   (0, _createClass3.default)(EditorToolbar, [{
-    key: 'componentWillMount',
+    key: "componentWillMount",
     value: function componentWillMount() {
       // Technically, we should also attach/detach event listeners when the
       // `keyEmitter` prop changes.
-      this.props.keyEmitter.on('keypress', this._onKeypress);
+      this.props.keyEmitter.on("keypress", this._onKeypress);
     }
   }, {
-    key: 'componentWillUnmount',
+    key: "componentWillUnmount",
     value: function componentWillUnmount() {
-      this.props.keyEmitter.removeListener('keypress', this._onKeypress);
+      this.props.keyEmitter.removeListener("keypress", this._onKeypress);
     }
   }, {
-    key: 'formatURL',
+    key: "formatURL",
     value: function formatURL(url) {
       if (this.props.formatURL) {
         return this.props.formatURL(url);
@@ -62372,7 +62372,7 @@ var EditorToolbar = function (_Component) {
       return { url: url };
     }
   }, {
-    key: 'render',
+    key: "render",
     value: function render() {
       var _this2 = this;
 
@@ -62387,41 +62387,41 @@ var EditorToolbar = function (_Component) {
       var display = toolbarConfig.display || _EditorToolbarConfig2.default.display;
       var buttonGroups = display.map(function (groupName) {
         switch (groupName) {
-          case 'INLINE_STYLE_BUTTONS':
+          case "INLINE_STYLE_BUTTONS":
             {
               return _this2._renderInlineStyleButtons(groupName, toolbarConfig);
             }
-          case 'BLOCK_TYPE_DROPDOWN':
+          case "BLOCK_TYPE_DROPDOWN":
             {
               return _this2._renderBlockTypeDropdown(groupName, toolbarConfig);
             }
-          case 'LINK_BUTTONS':
+          case "LINK_BUTTONS":
             {
               return _this2._renderLinkButtons(groupName, toolbarConfig);
             }
-          case 'IMAGE_BUTTON':
+          case "IMAGE_BUTTON":
             {
               return _this2._renderImageButton(groupName, toolbarConfig);
             }
-          case 'BLOCK_TYPE_BUTTONS':
+          case "BLOCK_TYPE_BUTTONS":
             {
               return _this2._renderBlockTypeButtons(groupName, toolbarConfig);
             }
-          case 'HISTORY_BUTTONS':
+          case "HISTORY_BUTTONS":
             {
               return _this2._renderUndoRedo(groupName, toolbarConfig);
             }
         }
       });
       return _react2.default.createElement(
-        'div',
+        "div",
         { className: (0, _classnames2.default)(_EditorToolbar2.default.root, className), style: rootStyle },
         buttonGroups,
         this._renderCustomControls()
       );
     }
   }, {
-    key: '_renderCustomControls',
+    key: "_renderCustomControls",
     value: function _renderCustomControls() {
       var _this3 = this;
 
@@ -62433,8 +62433,8 @@ var EditorToolbar = function (_Component) {
         return;
       }
       return customControls.map(function (f) {
-        switch (typeof f === 'undefined' ? 'undefined' : (0, _typeof3.default)(f)) {
-          case 'function':
+        switch (typeof f === "undefined" ? "undefined" : (0, _typeof3.default)(f)) {
+          case "function":
             {
               return f(_this3._setCustomControlState, _this3._getCustomControlState, editorState);
             }
@@ -62446,7 +62446,7 @@ var EditorToolbar = function (_Component) {
       });
     }
   }, {
-    key: '_setCustomControlState',
+    key: "_setCustomControlState",
     value: function _setCustomControlState(key, value) {
       this.setState(function (_ref) {
         var customControlState = _ref.customControlState;
@@ -62456,12 +62456,12 @@ var EditorToolbar = function (_Component) {
       });
     }
   }, {
-    key: '_getCustomControlState',
+    key: "_getCustomControlState",
     value: function _getCustomControlState(key) {
       return this.state.customControlState[key];
     }
   }, {
-    key: '_renderBlockTypeDropdown',
+    key: "_renderBlockTypeDropdown",
     value: function _renderBlockTypeDropdown(name, toolbarConfig) {
       var blockType = this._getCurrentBlockType();
       var choices = new _map2.default((toolbarConfig.BLOCK_TYPE_DROPDOWN || []).map(function (type) {
@@ -62481,7 +62481,7 @@ var EditorToolbar = function (_Component) {
       );
     }
   }, {
-    key: '_renderBlockTypeButtons',
+    key: "_renderBlockTypeButtons",
     value: function _renderBlockTypeButtons(name, toolbarConfig) {
       var _this4 = this;
 
@@ -62503,7 +62503,7 @@ var EditorToolbar = function (_Component) {
       );
     }
   }, {
-    key: '_renderInlineStyleButtons',
+    key: "_renderInlineStyleButtons",
     value: function _renderInlineStyleButtons(name, toolbarConfig) {
       var _this5 = this;
 
@@ -62527,7 +62527,7 @@ var EditorToolbar = function (_Component) {
       );
     }
   }, {
-    key: '_renderLinkButtons',
+    key: "_renderLinkButtons",
     value: function _renderLinkButtons(name, toolbarConfig) {
       var editorState = this.props.editorState;
 
@@ -62558,14 +62558,14 @@ var EditorToolbar = function (_Component) {
       );
     }
   }, {
-    key: '_renderImageButton',
+    key: "_renderImageButton",
     value: function _renderImageButton(name) {
       return _react2.default.createElement(
         _ButtonGroup2.default,
         { key: name },
         _react2.default.createElement(_PopoverIconButton2.default, {
-          label: 'Image',
-          iconName: 'image',
+          label: "Image",
+          iconName: "image",
           showPopover: this.state.showImageInput,
           onTogglePopover: this._toggleShowImageInput,
           onSubmit: this._setImage
@@ -62573,7 +62573,7 @@ var EditorToolbar = function (_Component) {
       );
     }
   }, {
-    key: '_renderUndoRedo',
+    key: "_renderUndoRedo",
     value: function _renderUndoRedo(name, toolbarConfig) {
       var editorState = this.props.editorState;
 
@@ -62583,15 +62583,15 @@ var EditorToolbar = function (_Component) {
         _ButtonGroup2.default,
         { key: name },
         _react2.default.createElement(_IconButton2.default, (0, _extends4.default)({}, toolbarConfig.extraProps, {
-          label: 'Undo',
-          iconName: 'undo',
+          label: "Undo",
+          iconName: "undo",
           isDisabled: !canUndo,
           onClick: this._undo,
           focusOnClick: false
         })),
         _react2.default.createElement(_IconButton2.default, (0, _extends4.default)({}, toolbarConfig.extraProps, {
-          label: 'Redo',
-          iconName: 'redo',
+          label: "Redo",
+          iconName: "redo",
           isDisabled: !canRedo,
           onClick: this._redo,
           focusOnClick: false
@@ -62599,7 +62599,7 @@ var EditorToolbar = function (_Component) {
       );
     }
   }, {
-    key: '_onKeypress',
+    key: "_onKeypress",
     value: function _onKeypress(event, eventFlags) {
       // Catch cmd+k for use with link insertion.
       if ((0, _KeyBindingUtil.hasCommandModifier)(event) && event.keyCode === 75) {
@@ -62612,13 +62612,14 @@ var EditorToolbar = function (_Component) {
       }
     }
   }, {
-    key: '_toggleShowLinkInput',
+    key: "_toggleShowLinkInput",
     value: function _toggleShowLinkInput(event) {
+      event.stopPropagation();
       var isShowing = this.state.showLinkInput;
       // If this is a hide request, decide if we should focus the editor.
       if (isShowing) {
         var shouldFocusEditor = true;
-        if (event && event.type === 'click') {
+        if (event && event.type === "click") {
           // TODO: Use a better way to get the editor root node.
           var editorRoot = _reactDom2.default.findDOMNode(this).parentNode;
           var _document = document,
@@ -62636,13 +62637,13 @@ var EditorToolbar = function (_Component) {
       this.setState({ showLinkInput: !isShowing });
     }
   }, {
-    key: '_toggleShowImageInput',
+    key: "_toggleShowImageInput",
     value: function _toggleShowImageInput(event) {
       var isShowing = this.state.showImageInput;
       // If this is a hide request, decide if we should focus the editor.
       if (isShowing) {
         var shouldFocusEditor = true;
-        if (event && event.type === 'click') {
+        if (event && event.type === "click") {
           // TODO: Use a better way to get the editor root node.
           var editorRoot = _reactDom2.default.findDOMNode(this).parentNode;
           var _document2 = document,
@@ -62660,27 +62661,29 @@ var EditorToolbar = function (_Component) {
       this.setState({ showImageInput: !isShowing });
     }
   }, {
-    key: '_setImage',
+    key: "_setImage",
     value: function _setImage(src) {
       var editorState = this.props.editorState;
 
       var contentState = editorState.getCurrentContent();
       var selection = editorState.getSelection();
-      contentState = contentState.createEntity(_draftJsUtils.ENTITY_TYPE.IMAGE, 'IMMUTABLE', { src: src });
+      contentState = contentState.createEntity(_draftJsUtils.ENTITY_TYPE.IMAGE, "IMMUTABLE", {
+        src: src
+      });
       var entityKey = contentState.getLastCreatedEntityKey();
-      var newContentState = _draftJs.Modifier.insertText(contentState, selection, ' ', null, entityKey);
+      var newContentState = _draftJs.Modifier.insertText(contentState, selection, " ", null, entityKey);
       this.setState({ showImageInput: false });
       this.props.onChange(_draftJs.EditorState.push(editorState, newContentState));
       this._focusEditor();
     }
   }, {
-    key: '_setLink',
+    key: "_setLink",
     value: function _setLink(url) {
       var editorState = this.props.editorState;
 
       var contentState = editorState.getCurrentContent();
       var selection = editorState.getSelection();
-      contentState = contentState.createEntity(_draftJsUtils.ENTITY_TYPE.LINK, 'MUTABLE', this.formatURL(url));
+      contentState = contentState.createEntity(_draftJsUtils.ENTITY_TYPE.LINK, "MUTABLE", this.formatURL(url));
       var entityKey = contentState.getLastCreatedEntityKey();
       var newEditorState = _draftJs.EditorState.push(editorState, contentState);
       this.setState({ showLinkInput: false });
@@ -62688,7 +62691,7 @@ var EditorToolbar = function (_Component) {
       this._focusEditor();
     }
   }, {
-    key: '_removeLink',
+    key: "_removeLink",
     value: function _removeLink() {
       var editorState = this.props.editorState;
 
@@ -62702,7 +62705,7 @@ var EditorToolbar = function (_Component) {
       }
     }
   }, {
-    key: '_getEntityAtCursor',
+    key: "_getEntityAtCursor",
     value: function _getEntityAtCursor() {
       var editorState = this.props.editorState;
 
@@ -62711,7 +62714,7 @@ var EditorToolbar = function (_Component) {
       return entity == null ? null : contentState.getEntity(entity.entityKey);
     }
   }, {
-    key: '_getCurrentBlockType',
+    key: "_getCurrentBlockType",
     value: function _getCurrentBlockType() {
       var editorState = this.props.editorState;
 
@@ -62719,37 +62722,37 @@ var EditorToolbar = function (_Component) {
       return editorState.getCurrentContent().getBlockForKey(selection.getStartKey()).getType();
     }
   }, {
-    key: '_selectBlockType',
+    key: "_selectBlockType",
     value: function _selectBlockType() {
       this._toggleBlockType.apply(this, arguments);
       this._focusEditor();
     }
   }, {
-    key: '_toggleBlockType',
+    key: "_toggleBlockType",
     value: function _toggleBlockType(blockType) {
       this.props.onChange(_draftJs.RichUtils.toggleBlockType(this.props.editorState, blockType));
     }
   }, {
-    key: '_toggleInlineStyle',
+    key: "_toggleInlineStyle",
     value: function _toggleInlineStyle(inlineStyle) {
       this.props.onChange(_draftJs.RichUtils.toggleInlineStyle(this.props.editorState, inlineStyle));
     }
   }, {
-    key: '_undo',
+    key: "_undo",
     value: function _undo() {
       var editorState = this.props.editorState;
 
       this.props.onChange(_draftJs.EditorState.undo(editorState));
     }
   }, {
-    key: '_redo',
+    key: "_redo",
     value: function _redo() {
       var editorState = this.props.editorState;
 
       this.props.onChange(_draftJs.EditorState.redo(editorState));
     }
   }, {
-    key: '_focusEditor',
+    key: "_focusEditor",
     value: function _focusEditor() {
       var _this6 = this;
 

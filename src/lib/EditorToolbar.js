@@ -1,46 +1,45 @@
 /* @flow */
-import {hasCommandModifier} from 'draft-js/lib/KeyBindingUtil';
+import { hasCommandModifier } from "draft-js/lib/KeyBindingUtil";
 
-import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
-import {EditorState, Entity, RichUtils, Modifier} from 'draft-js';
-import {ENTITY_TYPE} from 'draft-js-utils';
-import DefaultToolbarConfig from './EditorToolbarConfig';
-import StyleButton from './StyleButton';
-import PopoverIconButton from '../ui/PopoverIconButton';
-import ButtonGroup from '../ui/ButtonGroup';
-import Dropdown from '../ui/Dropdown';
-import IconButton from '../ui/IconButton';
-import getEntityAtCursor from './getEntityAtCursor';
-import clearEntityForRange from './clearEntityForRange';
-import autobind from 'class-autobind';
-import cx from 'classnames';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import { EditorState, Entity, RichUtils, Modifier } from "draft-js";
+import { ENTITY_TYPE } from "draft-js-utils";
+import DefaultToolbarConfig from "./EditorToolbarConfig";
+import StyleButton from "./StyleButton";
+import PopoverIconButton from "../ui/PopoverIconButton";
+import ButtonGroup from "../ui/ButtonGroup";
+import Dropdown from "../ui/Dropdown";
+import IconButton from "../ui/IconButton";
+import getEntityAtCursor from "./getEntityAtCursor";
+import clearEntityForRange from "./clearEntityForRange";
+import autobind from "class-autobind";
+import cx from "classnames";
 
-import styles from './EditorToolbar.css';
+import styles from "./EditorToolbar.css";
 
-import type EventEmitter from 'events';
-import type {ToolbarConfig, CustomControl} from './EditorToolbarConfig';
+import type EventEmitter from "events";
+import type { ToolbarConfig, CustomControl } from "./EditorToolbarConfig";
 
 type ChangeHandler = (state: EditorState) => any;
 
 type Props = {
-  className?: string;
-  editorState: EditorState;
-  keyEmitter: EventEmitter;
-  onChange: ChangeHandler;
-  focusEditor: Function;
-  toolbarConfig: ToolbarConfig;
-  customControls: Array<CustomControl>;
-  rootStyle?: Object;
-  formatURL: Function;
+  className?: string,
+  editorState: EditorState,
+  keyEmitter: EventEmitter,
+  onChange: ChangeHandler,
+  focusEditor: Function,
+  toolbarConfig: ToolbarConfig,
+  customControls: Array<CustomControl>,
+  rootStyle?: Object,
+  formatURL: Function,
 };
 
 type State = {
-  showLinkInput: boolean;
-  showImageInput: boolean;
-  customControlState: {[key: string]: string};
+  showLinkInput: boolean,
+  showImageInput: boolean,
+  customControlState: { [key: string]: string },
 };
-
 
 export default class EditorToolbar extends Component {
   props: Props;
@@ -59,44 +58,44 @@ export default class EditorToolbar extends Component {
   componentWillMount() {
     // Technically, we should also attach/detach event listeners when the
     // `keyEmitter` prop changes.
-    this.props.keyEmitter.on('keypress', this._onKeypress);
+    this.props.keyEmitter.on("keypress", this._onKeypress);
   }
 
   componentWillUnmount() {
-    this.props.keyEmitter.removeListener('keypress', this._onKeypress);
+    this.props.keyEmitter.removeListener("keypress", this._onKeypress);
   }
 
   formatURL(url: string) {
     if (this.props.formatURL) {
       return this.props.formatURL(url);
     }
-    return {url};
+    return { url };
   }
 
   render() {
-    let {className, toolbarConfig, rootStyle} = this.props;
+    let { className, toolbarConfig, rootStyle } = this.props;
     if (toolbarConfig == null) {
       toolbarConfig = DefaultToolbarConfig;
     }
     let display = toolbarConfig.display || DefaultToolbarConfig.display;
     let buttonGroups = display.map((groupName) => {
       switch (groupName) {
-        case 'INLINE_STYLE_BUTTONS': {
+        case "INLINE_STYLE_BUTTONS": {
           return this._renderInlineStyleButtons(groupName, toolbarConfig);
         }
-        case 'BLOCK_TYPE_DROPDOWN': {
+        case "BLOCK_TYPE_DROPDOWN": {
           return this._renderBlockTypeDropdown(groupName, toolbarConfig);
         }
-        case 'LINK_BUTTONS': {
+        case "LINK_BUTTONS": {
           return this._renderLinkButtons(groupName, toolbarConfig);
         }
-        case 'IMAGE_BUTTON': {
+        case "IMAGE_BUTTON": {
           return this._renderImageButton(groupName, toolbarConfig);
         }
-        case 'BLOCK_TYPE_BUTTONS': {
+        case "BLOCK_TYPE_BUTTONS": {
           return this._renderBlockTypeButtons(groupName, toolbarConfig);
         }
-        case 'HISTORY_BUTTONS': {
+        case "HISTORY_BUTTONS": {
           return this._renderUndoRedo(groupName, toolbarConfig);
         }
       }
@@ -110,13 +109,13 @@ export default class EditorToolbar extends Component {
   }
 
   _renderCustomControls() {
-    let {customControls, editorState} = this.props;
+    let { customControls, editorState } = this.props;
     if (customControls == null) {
       return;
     }
     return customControls.map((f) => {
       switch (typeof f) {
-        case 'function': {
+        case "function": {
           return f(
             this._setCustomControlState,
             this._getCustomControlState,
@@ -131,8 +130,8 @@ export default class EditorToolbar extends Component {
   }
 
   _setCustomControlState(key: string, value: string) {
-    this.setState(({customControlState}) => ({
-      customControlState: {...customControlState, [key]: value},
+    this.setState(({ customControlState }) => ({
+      customControlState: { ...customControlState, [key]: value },
     }));
   }
 
@@ -143,7 +142,10 @@ export default class EditorToolbar extends Component {
   _renderBlockTypeDropdown(name: string, toolbarConfig: ToolbarConfig) {
     let blockType = this._getCurrentBlockType();
     let choices = new Map(
-      (toolbarConfig.BLOCK_TYPE_DROPDOWN || []).map((type) => [type.style, {label: type.label, className: type.className}])
+      (toolbarConfig.BLOCK_TYPE_DROPDOWN || []).map((type) => [
+        type.style,
+        { label: type.label, className: type.className },
+      ])
     );
     if (!choices.has(blockType)) {
       blockType = Array.from(choices.keys())[0];
@@ -162,47 +164,47 @@ export default class EditorToolbar extends Component {
 
   _renderBlockTypeButtons(name: string, toolbarConfig: ToolbarConfig) {
     let blockType = this._getCurrentBlockType();
-    let buttons = (toolbarConfig.BLOCK_TYPE_BUTTONS || []).map((type, index) => (
-      <StyleButton
-        {...toolbarConfig.extraProps}
-        key={String(index)}
-        isActive={type.style === blockType}
-        label={type.label}
-        onToggle={this._toggleBlockType}
-        style={type.style}
-        className={type.className}
-      />
-    ));
-    return (
-      <ButtonGroup key={name}>{buttons}</ButtonGroup>
+    let buttons = (toolbarConfig.BLOCK_TYPE_BUTTONS || []).map(
+      (type, index) => (
+        <StyleButton
+          {...toolbarConfig.extraProps}
+          key={String(index)}
+          isActive={type.style === blockType}
+          label={type.label}
+          onToggle={this._toggleBlockType}
+          style={type.style}
+          className={type.className}
+        />
+      )
     );
+    return <ButtonGroup key={name}>{buttons}</ButtonGroup>;
   }
 
   _renderInlineStyleButtons(name: string, toolbarConfig: ToolbarConfig) {
-    let {editorState} = this.props;
+    let { editorState } = this.props;
     let currentStyle = editorState.getCurrentInlineStyle();
-    let buttons = (toolbarConfig.INLINE_STYLE_BUTTONS || []).map((type, index) => (
-      <StyleButton
-        {...toolbarConfig.extraProps}
-        key={String(index)}
-        isActive={currentStyle.has(type.style)}
-        label={type.label}
-        onToggle={this._toggleInlineStyle}
-        style={type.style}
-        className={type.className}
-      />
-    ));
-    return (
-      <ButtonGroup key={name}>{buttons}</ButtonGroup>
+    let buttons = (toolbarConfig.INLINE_STYLE_BUTTONS || []).map(
+      (type, index) => (
+        <StyleButton
+          {...toolbarConfig.extraProps}
+          key={String(index)}
+          isActive={currentStyle.has(type.style)}
+          label={type.label}
+          onToggle={this._toggleInlineStyle}
+          style={type.style}
+          className={type.className}
+        />
+      )
     );
+    return <ButtonGroup key={name}>{buttons}</ButtonGroup>;
   }
 
   _renderLinkButtons(name: string, toolbarConfig: ToolbarConfig) {
-    let {editorState} = this.props;
+    let { editorState } = this.props;
     let selection = editorState.getSelection();
     let entity = this._getEntityAtCursor();
     let hasSelection = !selection.isCollapsed();
-    let isCursorOnLink = (entity != null && entity.type === ENTITY_TYPE.LINK);
+    let isCursorOnLink = entity != null && entity.type === ENTITY_TYPE.LINK;
     let shouldShowLinkButton = hasSelection || isCursorOnLink;
     return (
       <ButtonGroup key={name}>
@@ -242,7 +244,7 @@ export default class EditorToolbar extends Component {
   }
 
   _renderUndoRedo(name: string, toolbarConfig: ToolbarConfig) {
-    let {editorState} = this.props;
+    let { editorState } = this.props;
     let canUndo = editorState.getUndoStack().size !== 0;
     let canRedo = editorState.getRedoStack().size !== 0;
     return (
@@ -270,24 +272,26 @@ export default class EditorToolbar extends Component {
   _onKeypress(event: Object, eventFlags: Object) {
     // Catch cmd+k for use with link insertion.
     if (hasCommandModifier(event) && event.keyCode === 75) {
-      let {editorState} = this.props;
+      let { editorState } = this.props;
       if (!editorState.getSelection().isCollapsed()) {
-        this.setState({showLinkInput: true});
+        this.setState({ showLinkInput: true });
         eventFlags.wasHandled = true;
       }
     }
   }
 
   _toggleShowLinkInput(event: ?Object) {
+    event.stopPropagation();
     let isShowing = this.state.showLinkInput;
     // If this is a hide request, decide if we should focus the editor.
     if (isShowing) {
       let shouldFocusEditor = true;
-      if (event && event.type === 'click') {
+      if (event && event.type === "click") {
         // TODO: Use a better way to get the editor root node.
         let editorRoot = ReactDOM.findDOMNode(this).parentNode;
-        let {activeElement} = document;
-        let wasClickAway = (activeElement == null || activeElement === document.body);
+        let { activeElement } = document;
+        let wasClickAway =
+          activeElement == null || activeElement === document.body;
         if (!wasClickAway && !editorRoot.contains(activeElement)) {
           shouldFocusEditor = false;
         }
@@ -296,7 +300,7 @@ export default class EditorToolbar extends Component {
         this.props.focusEditor();
       }
     }
-    this.setState({showLinkInput: !isShowing});
+    this.setState({ showLinkInput: !isShowing });
   }
 
   _toggleShowImageInput(event: ?Object) {
@@ -304,11 +308,12 @@ export default class EditorToolbar extends Component {
     // If this is a hide request, decide if we should focus the editor.
     if (isShowing) {
       let shouldFocusEditor = true;
-      if (event && event.type === 'click') {
+      if (event && event.type === "click") {
         // TODO: Use a better way to get the editor root node.
         let editorRoot = ReactDOM.findDOMNode(this).parentNode;
-        let {activeElement} = document;
-        let wasClickAway = (activeElement == null || activeElement === document.body);
+        let { activeElement } = document;
+        let wasClickAway =
+          activeElement == null || activeElement === document.body;
         if (!wasClickAway && !editorRoot.contains(activeElement)) {
           shouldFocusEditor = false;
         }
@@ -317,31 +322,41 @@ export default class EditorToolbar extends Component {
         this.props.focusEditor();
       }
     }
-    this.setState({showImageInput: !isShowing});
+    this.setState({ showImageInput: !isShowing });
   }
 
   _setImage(src: string) {
-    let {editorState} = this.props;
+    let { editorState } = this.props;
     let contentState = editorState.getCurrentContent();
     let selection = editorState.getSelection();
-    contentState = contentState.createEntity(ENTITY_TYPE.IMAGE, 'IMMUTABLE', {src});
+    contentState = contentState.createEntity(ENTITY_TYPE.IMAGE, "IMMUTABLE", {
+      src,
+    });
     let entityKey = contentState.getLastCreatedEntityKey();
-    let newContentState = Modifier.insertText(contentState, selection, ' ', null, entityKey);
-    this.setState({showImageInput: false});
-    this.props.onChange(
-      EditorState.push(editorState, newContentState)
+    let newContentState = Modifier.insertText(
+      contentState,
+      selection,
+      " ",
+      null,
+      entityKey
     );
+    this.setState({ showImageInput: false });
+    this.props.onChange(EditorState.push(editorState, newContentState));
     this._focusEditor();
   }
 
   _setLink(url: string) {
-    let {editorState} = this.props;
+    let { editorState } = this.props;
     let contentState = editorState.getCurrentContent();
     let selection = editorState.getSelection();
-    contentState = contentState.createEntity(ENTITY_TYPE.LINK, 'MUTABLE', this.formatURL(url));
+    contentState = contentState.createEntity(
+      ENTITY_TYPE.LINK,
+      "MUTABLE",
+      this.formatURL(url)
+    );
     let entityKey = contentState.getLastCreatedEntityKey();
     let newEditorState = EditorState.push(editorState, contentState);
-    this.setState({showLinkInput: false});
+    this.setState({ showLinkInput: false });
     this.props.onChange(
       RichUtils.toggleLink(newEditorState, selection, entityKey)
     );
@@ -349,10 +364,10 @@ export default class EditorToolbar extends Component {
   }
 
   _removeLink() {
-    let {editorState} = this.props;
+    let { editorState } = this.props;
     let entity = getEntityAtCursor(editorState);
     if (entity != null) {
-      let {blockKey, startOffset, endOffset} = entity;
+      let { blockKey, startOffset, endOffset } = entity;
       this.props.onChange(
         clearEntityForRange(editorState, blockKey, startOffset, endOffset)
       );
@@ -360,14 +375,14 @@ export default class EditorToolbar extends Component {
   }
 
   _getEntityAtCursor(): ?Entity {
-    let {editorState} = this.props;
+    let { editorState } = this.props;
     let contentState = editorState.getCurrentContent();
     let entity = getEntityAtCursor(editorState);
-    return (entity == null) ? null : contentState.getEntity(entity.entityKey);
+    return entity == null ? null : contentState.getEntity(entity.entityKey);
   }
 
   _getCurrentBlockType(): string {
-    let {editorState} = this.props;
+    let { editorState } = this.props;
     let selection = editorState.getSelection();
     return editorState
       .getCurrentContent()
@@ -382,34 +397,24 @@ export default class EditorToolbar extends Component {
 
   _toggleBlockType(blockType: string) {
     this.props.onChange(
-      RichUtils.toggleBlockType(
-        this.props.editorState,
-        blockType
-      )
+      RichUtils.toggleBlockType(this.props.editorState, blockType)
     );
   }
 
   _toggleInlineStyle(inlineStyle: string) {
     this.props.onChange(
-      RichUtils.toggleInlineStyle(
-        this.props.editorState,
-        inlineStyle
-      )
+      RichUtils.toggleInlineStyle(this.props.editorState, inlineStyle)
     );
   }
 
   _undo() {
-    let {editorState} = this.props;
-    this.props.onChange(
-      EditorState.undo(editorState)
-    );
+    let { editorState } = this.props;
+    this.props.onChange(EditorState.undo(editorState));
   }
 
   _redo() {
-    let {editorState} = this.props;
-    this.props.onChange(
-      EditorState.redo(editorState)
-    );
+    let { editorState } = this.props;
+    this.props.onChange(EditorState.redo(editorState));
   }
 
   _focusEditor() {
